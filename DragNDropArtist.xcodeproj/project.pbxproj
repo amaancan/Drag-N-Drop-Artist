@@ -13,6 +13,7 @@
 		51E004BA2128DE8C00FE6465 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E004B82128DE8C00FE6465 /* LaunchScreen.storyboard */; };
 		51E004C62128E77400FE6465 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C52128E77400FE6465 /* CanvasViewController.swift */; };
 		51E004C82128E80B00FE6465 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C72128E80B00FE6465 /* CanvasView.swift */; };
+		51E004CA21290A8700FE6465 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C921290A8700FE6465 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		51E004BB2128DE8C00FE6465 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51E004C52128E77400FE6465 /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
 		51E004C72128E80B00FE6465 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		51E004C921290A8700FE6465 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		51E004C12128DEB300FE6465 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				51E004C921290A8700FE6465 /* Utilities.swift */,
 				51E004AF2128DE8C00FE6465 /* AppDelegate.swift */,
 				51E004B62128DE8C00FE6465 /* Assets.xcassets */,
 				51E004BB2128DE8C00FE6465 /* Info.plist */,
@@ -69,9 +72,9 @@
 		51E004C22128E5E100FE6465 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51E004C72128E80B00FE6465 /* CanvasView.swift */,
 				51E004B32128DE8C00FE6465 /* Main.storyboard */,
 				51E004B82128DE8C00FE6465 /* LaunchScreen.storyboard */,
-				51E004C72128E80B00FE6465 /* CanvasView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			files = (
 				51E004C62128E77400FE6465 /* CanvasViewController.swift in Sources */,
 				51E004B02128DE8C00FE6465 /* AppDelegate.swift in Sources */,
+				51E004CA21290A8700FE6465 /* Utilities.swift in Sources */,
 				51E004C82128E80B00FE6465 /* CanvasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,10 +10,14 @@ import UIKit
 
 class CanvasView: UIView {
 
+    var backgroundImage: UIImage? {
+        didSet {
+            setNeedsDisplay() // calls draw(_ rect)
+        }
+    }
 
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        // Drawing code
+        backgroundImage?.draw(in: bounds)
     }
 
 

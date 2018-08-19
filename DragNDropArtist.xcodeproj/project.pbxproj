@@ -15,6 +15,8 @@
 		51E004C82128E80B00FE6465 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C72128E80B00FE6465 /* CanvasView.swift */; };
 		51E004CA21290A8700FE6465 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C921290A8700FE6465 /* Utilities.swift */; };
 		51E004CC212932CC00FE6465 /* CanvasFilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */; };
+		51E004D12129379C00FE6465 /* CanvasFilesTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E004CF2129379C00FE6465 /* CanvasFilesTableViewController.storyboard */; };
+		51E004D32129387800FE6465 /* CanvasViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E004D22129387800FE6465 /* CanvasViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		51E004C72128E80B00FE6465 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		51E004C921290A8700FE6465 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasFilesTableViewController.swift; sourceTree = "<group>"; };
+		51E004D02129379C00FE6465 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Views/Base.lproj/CanvasFilesTableViewController.storyboard; sourceTree = "<group>"; };
+		51E004D22129387800FE6465 /* CanvasViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CanvasViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 			children = (
 				51E004C72128E80B00FE6465 /* CanvasView.swift */,
 				51E004B32128DE8C00FE6465 /* Main.storyboard */,
+				51E004CF2129379C00FE6465 /* CanvasFilesTableViewController.storyboard */,
+				51E004D22129387800FE6465 /* CanvasViewController.storyboard */,
 				51E004B82128DE8C00FE6465 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -156,6 +162,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51E004D32129387800FE6465 /* CanvasViewController.storyboard in Resources */,
+				51E004D12129379C00FE6465 /* CanvasFilesTableViewController.storyboard in Resources */,
 				51E004BA2128DE8C00FE6465 /* LaunchScreen.storyboard in Resources */,
 				51E004B72128DE8C00FE6465 /* Assets.xcassets in Resources */,
 				51E004B52128DE8C00FE6465 /* Main.storyboard in Resources */,
@@ -194,6 +202,14 @@
 				51E004B92128DE8C00FE6465 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		51E004CF2129379C00FE6465 /* CanvasFilesTableViewController.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51E004D02129379C00FE6465 /* Base */,
+			);
+			name = CanvasFilesTableViewController.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

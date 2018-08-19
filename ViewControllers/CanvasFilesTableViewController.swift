@@ -13,10 +13,11 @@ class CanvasFilesTableViewController: UITableViewController {
     // model
     var canvasFiles = ["One", "Two", "Three"]
     
+    @IBAction func addCanvasFile(_ sender: UIBarButtonItem) {
+        canvasFiles += ["Untitled".madeUnique(withRespectTo: canvasFiles)]
+        tableView.reloadData()
+    }
     
-    
-
-
 }
 
 
@@ -37,5 +38,12 @@ extension CanvasFilesTableViewController {
         cell.textLabel?.text = canvasFiles[indexPath.row] // Configure cell
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle ==  .delete {
+            canvasFiles.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class EmojiCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet private weak var label: UILabel!
+    @IBOutlet private(set) weak var label: UILabel!
     
     private var font: UIFont {
         // TODO: preferred fontSize should cause collectionView (and it's cells') size to expand and dynmaically accomodate large fontSize

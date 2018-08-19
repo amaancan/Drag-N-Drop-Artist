@@ -34,6 +34,7 @@ class CanvasViewController: UIViewController {
             // Must do when hook up a CV/TV that's not pre-packaged w/ it's VC
             emojiCollectionView.dataSource = self
             emojiCollectionView.delegate = self
+            emojiCollectionView.dragDelegate = self
         }
     }
     
@@ -73,6 +74,29 @@ class CanvasViewController: UIViewController {
         // Question: optionally chain in case it gets called from prepare(for segue:)
         scrollViewHeight?.constant = scrollView.contentSize.height
         scrollViewWidth?.constant = scrollView.contentSize.width
+    }
+}
+
+extension CanvasViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return dragItems(at: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItems(at: indexPath)
+    }
+    
+    private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
+        
+        // chose not to optionally bind because confident it'll be able to do this stuff for the indexPath given
+        let draggedCell = emojiCollectionView.cellForItem(at: indexPath) as! EmojiCollectionViewCell
+        let draggedEmoji = draggedCell.label.attributedText!
+        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: draggedEmoji))
+        
+        // for drops w/in app it'll use this property instead of having to implement UIDropInteractionDelegate methods like we did for canvasView
+        dragItem.localObject = draggedEmoji
+        
+        return [dragItem]
     }
 }
 

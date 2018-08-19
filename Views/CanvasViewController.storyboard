@@ -21,17 +21,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UAv-2c-Det" userLabel="DropZone">
                                 <rect key="frame" x="0.0" y="20" width="1112" height="814"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6f-9r-Gea" customClass="CanvasView" customModule="DragNDropArtist" customModuleProvider="target">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhO-Cn-P6p">
                                         <rect key="frame" x="0.0" y="0.0" width="1112" height="814"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
+                                    </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="c6f-9r-Gea" firstAttribute="top" secondItem="UAv-2c-Det" secondAttribute="top" id="Ia0-8E-qUo"/>
-                                    <constraint firstAttribute="bottom" secondItem="c6f-9r-Gea" secondAttribute="bottom" id="K3N-1v-1lQ"/>
-                                    <constraint firstItem="c6f-9r-Gea" firstAttribute="leading" secondItem="UAv-2c-Det" secondAttribute="leading" id="LHC-8f-4dQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="c6f-9r-Gea" secondAttribute="trailing" id="NMM-Hf-LD9"/>
+                                    <constraint firstAttribute="trailing" secondItem="rhO-Cn-P6p" secondAttribute="trailing" id="D8p-MO-nQN"/>
+                                    <constraint firstItem="rhO-Cn-P6p" firstAttribute="top" secondItem="UAv-2c-Det" secondAttribute="top" id="QtK-Xn-cER"/>
+                                    <constraint firstItem="rhO-Cn-P6p" firstAttribute="leading" secondItem="UAv-2c-Det" secondAttribute="leading" id="fgc-mN-dnu"/>
+                                    <constraint firstAttribute="bottom" secondItem="rhO-Cn-P6p" secondAttribute="bottom" id="hac-xo-eCX"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -45,8 +44,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="canvasView" destination="c6f-9r-Gea" id="omP-Eb-hGj"/>
                         <outlet property="dropZoneView" destination="UAv-2c-Det" id="u0b-tj-6Qe"/>
+                        <outlet property="scrollView" destination="rhO-Cn-P6p" id="mPO-BZ-xhG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

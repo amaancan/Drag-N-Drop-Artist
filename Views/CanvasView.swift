@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CanvasView: UIView {
+class CanvasView: UIView { // Question: Should be an ImageView?
 
     var backgroundImage: UIImage? {
         didSet {

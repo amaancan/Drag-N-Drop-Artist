@@ -18,6 +18,14 @@ class CanvasFilesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // setting this property triggers viewWillLayoutSubviews, so avoid infinite loop
+        if splitViewController?.preferredDisplayMode != .primaryOverlay {
+            splitViewController?.preferredDisplayMode = .primaryOverlay
+        }
+    }
+    
 }
 
 

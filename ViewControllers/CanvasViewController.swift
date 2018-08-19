@@ -9,7 +9,7 @@
 import UIKit
 
 class CanvasViewController: UIViewController {
-
+    // MARK: - OUTLETS
     // 1) keeping track of URLs happens in controller, don't want view to know this info 2) scrollView
     @IBOutlet weak var dropZoneView: UIView! {
         didSet {
@@ -19,11 +19,51 @@ class CanvasViewController: UIViewController {
             dropZoneView.addInteraction(UIDropInteraction(delegate: self))
         }
     }
-    @IBOutlet weak var canvasView: CanvasView!
     
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.minimumZoomScale = 0.1
+            scrollView.maximumZoomScale = 5.0
+            scrollView.delegate = self
+            scrollView.addSubview(canvasView)
+        }
+    }
+    
+    // MARK: - MEMBER VARS
+    var canvasView = CanvasView()
     var imageFetcher: ImageFetcher!
-  
+    var canvasBackgroundImage: UIImage? {
+        get {  return canvasView.backgroundImage  }
+        set {
+            scrollView.zoomScale = 1.0 // reset for new image
+            canvasView.backgroundImage = newValue
+            
+            // new background image's size dictates size of: 1) it's canvasView 2) scrollView's contentSize
+            let size = newValue?.size ?? CGSize.zero
+            canvasView.frame = CGRect(origin: CGPoint.zero, size: size)
+            scrollView?.contentSize = size
+            
+            if let dropZoneView =
+                self.dropZoneView,
+                size.width > 0,
+                size.height > 0 {
+            
+                scrollView?.zoomScale = max(
+                    // sets zoomScale so contentSize fills up either width or height of scrollView every time
+                    dropZoneView.bounds.size.width / size.width,
+                    dropZoneView.bounds.size.height / size.height)
+            }
+        }
+    }
 }
+
+
+extension CanvasViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return canvasView
+    }
+}
+
 
 extension CanvasViewController: UIDropInteractionDelegate {
     
@@ -47,7 +87,7 @@ extension CanvasViewController: UIDropInteractionDelegate {
         // ImageFetcher: takes a url, makes sure it is an image, fetches it's image, calls handler you provide, sets backup image if fetch fails
         imageFetcher = ImageFetcher(handler: { (url, image) in
             DispatchQueue.main.async {
-                self.canvasView.backgroundImage = image
+                self.canvasBackgroundImage = image
                 // TODO: will save url later
             }
         })

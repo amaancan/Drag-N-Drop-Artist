@@ -19,7 +19,6 @@ class CanvasViewController: UIViewController {
             dropZoneView.addInteraction(UIDropInteraction(delegate: self))
         }
     }
-    
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.minimumZoomScale = 0.1
@@ -28,6 +27,8 @@ class CanvasViewController: UIViewController {
             scrollView.addSubview(canvasView)
         }
     }
+    @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     
     // MARK: - MEMBER VARS
     var canvasView = CanvasView()
@@ -42,25 +43,35 @@ class CanvasViewController: UIViewController {
             let size = newValue?.size ?? CGSize.zero
             canvasView.frame = CGRect(origin: CGPoint.zero, size: size)
             scrollView?.contentSize = size
+            setScrollViewSizeEqualToItsContentSize()
             
             if let dropZoneView =
-                self.dropZoneView,
-                size.width > 0,
+                self.dropZoneView, // Question: don't need this since implicitly unwrapped?
+                size.width > 0, 
                 size.height > 0 {
             
                 scrollView?.zoomScale = max(
-                    // sets zoomScale so contentSize fills up either width or height of scrollView every time
+                    // sets zoomScale so contentSize fills up either width or height of scrollView every time, whichever is smaller
                     dropZoneView.bounds.size.width / size.width,
                     dropZoneView.bounds.size.height / size.height)
             }
         }
     }
+    
+    private func setScrollViewSizeEqualToItsContentSize() {
+        // Question: optionally chain in case it gets called from prepare(for segue:)
+        scrollViewHeight?.constant = scrollView.contentSize.height
+        scrollViewWidth?.constant = scrollView.contentSize.width
+    }
 }
-
 
 extension CanvasViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return canvasView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        setScrollViewSizeEqualToItsContentSize()
     }
 }
 

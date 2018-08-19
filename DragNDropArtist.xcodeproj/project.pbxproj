@@ -17,6 +17,7 @@
 		51E004CC212932CC00FE6465 /* CanvasFilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */; };
 		51E004D12129379C00FE6465 /* CanvasFilesTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E004CF2129379C00FE6465 /* CanvasFilesTableViewController.storyboard */; };
 		51E004D32129387800FE6465 /* CanvasViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E004D22129387800FE6465 /* CanvasViewController.storyboard */; };
+		51E004D5212A210600FE6465 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004D4212A210600FE6465 /* EmojiCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasFilesTableViewController.swift; sourceTree = "<group>"; };
 		51E004D02129379C00FE6465 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Views/Base.lproj/CanvasFilesTableViewController.storyboard; sourceTree = "<group>"; };
 		51E004D22129387800FE6465 /* CanvasViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CanvasViewController.storyboard; sourceTree = "<group>"; };
+		51E004D4212A210600FE6465 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				51E004C72128E80B00FE6465 /* CanvasView.swift */,
+				51E004D4212A210600FE6465 /* EmojiCollectionViewCell.swift */,
 				51E004B32128DE8C00FE6465 /* Main.storyboard */,
 				51E004CF2129379C00FE6465 /* CanvasFilesTableViewController.storyboard */,
 				51E004D22129387800FE6465 /* CanvasViewController.storyboard */,
@@ -178,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51E004C62128E77400FE6465 /* CanvasViewController.swift in Sources */,
+				51E004D5212A210600FE6465 /* EmojiCollectionViewCell.swift in Sources */,
 				51E004B02128DE8C00FE6465 /* AppDelegate.swift in Sources */,
 				51E004CC212932CC00FE6465 /* CanvasFilesTableViewController.swift in Sources */,
 				51E004CA21290A8700FE6465 /* Utilities.swift in Sources */,

@@ -29,6 +29,13 @@ class CanvasViewController: UIViewController {
     }
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var emojiCollectionView: UICollectionView! {
+        didSet {
+            // Must do when hook up a CV/TV that's not pre-packaged w/ it's VC
+            emojiCollectionView.dataSource = self
+            emojiCollectionView.delegate = self
+        }
+    }
     
     // MARK: - MEMBER VARS
     var canvasView = CanvasView()
@@ -58,12 +65,33 @@ class CanvasViewController: UIViewController {
         }
     }
     
+    // collectionView's model
+    var emojis = "😀🎃🤖👾👻💀👽😻👀👅🐱🦁🐝🦄🌲🌳🌴🌹🍄🌻🌼🌙✨🌈☀️☁️🌧🍎🚗🚲🏎🚀🚁🏡🎁❤️🇨🇦".map { String($0) }
+    
+    // MARK: - HELPER FUNCTIONS
     private func setScrollViewSizeEqualToItsContentSize() {
         // Question: optionally chain in case it gets called from prepare(for segue:)
         scrollViewHeight?.constant = scrollView.contentSize.height
         scrollViewWidth?.constant = scrollView.contentSize.width
     }
 }
+
+
+extension CanvasViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return emojis.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emojiCell", for: indexPath) as! EmojiCollectionViewCell
+        
+        cell.configure(using: emojis[indexPath.item])
+        return cell
+    }
+    
+    
+}
+
 
 extension CanvasViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

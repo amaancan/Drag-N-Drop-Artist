@@ -14,6 +14,7 @@
 		51E004C62128E77400FE6465 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C52128E77400FE6465 /* CanvasViewController.swift */; };
 		51E004C82128E80B00FE6465 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C72128E80B00FE6465 /* CanvasView.swift */; };
 		51E004CA21290A8700FE6465 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004C921290A8700FE6465 /* Utilities.swift */; };
+		51E004CC212932CC00FE6465 /* CanvasFilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		51E004C52128E77400FE6465 /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
 		51E004C72128E80B00FE6465 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		51E004C921290A8700FE6465 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasFilesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				51E004C52128E77400FE6465 /* CanvasViewController.swift */,
+				51E004CB212932CC00FE6465 /* CanvasFilesTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			files = (
 				51E004C62128E77400FE6465 /* CanvasViewController.swift in Sources */,
 				51E004B02128DE8C00FE6465 /* AppDelegate.swift in Sources */,
+				51E004CC212932CC00FE6465 /* CanvasFilesTableViewController.swift in Sources */,
 				51E004CA21290A8700FE6465 /* Utilities.swift in Sources */,
 				51E004C82128E80B00FE6465 /* CanvasView.swift in Sources */,
 			);

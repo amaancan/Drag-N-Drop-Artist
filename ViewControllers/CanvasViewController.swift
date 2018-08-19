@@ -13,6 +13,9 @@ class CanvasViewController: UIViewController {
     // 1) keeping track of URLs happens in controller, don't want view to know this info 2) scrollView
     @IBOutlet weak var dropZoneView: UIView! {
         didSet {
+            // view's interaction obj passes user drag/drop data to it's delegate (self) via args in func call,
+            // so that delegate can: a) use data and do sth with it (update it's own UI) OR b) pass back some data only it knows how to produce (e.g. canHandle)
+            // view (delegator) decides when to call the func since it's receiving user's events
             dropZoneView.addInteraction(UIDropInteraction(delegate: self))
         }
     }
@@ -50,13 +53,13 @@ extension CanvasViewController: UIDropInteractionDelegate {
         })
         
         // Give me classes that conform to NSURLProvider and do closure using an array of said objects (urls, images)
-        session.loadObjects(ofClass: NSURL.self) { [unowned self] (nsurls) in
+        session.loadObjects(ofClass: NSURL.self) { [unowned self] (nsurls) in // Question: Do I need unowned self here, since I'm w/in scope of func?
             if let url = nsurls.first as? URL {
-                self.imageFetcher.fetch(url)
+                self.imageFetcher.fetch(url) // Question: what's the point of fetching if we're saving the image itself anyway?
             }
         }
         
-        session.loadObjects(ofClass: UIImage.self) { (images) in
+        session.loadObjects(ofClass: UIImage.self) { [unowned self] (images) in
             if let image = images.first as? UIImage {
                 self.imageFetcher.backup = image
             }

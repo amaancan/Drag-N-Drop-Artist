@@ -35,6 +35,7 @@ class CanvasViewController: UIViewController {
             emojiCollectionView.dataSource = self
             emojiCollectionView.delegate = self
             emojiCollectionView.dragDelegate = self
+            emojiCollectionView.dropDelegate = self
         }
     }
     
@@ -67,6 +68,7 @@ class CanvasViewController: UIViewController {
     }
     
     // collectionView's model
+    // map: takes a collection (not just arrays) -> returns an array
     var emojis = "😀🎃🤖👾👻💀👽😻👀👅🐱🦁🐝🦄🌲🌳🌴🌹🍄🌻🌼🌙✨🌈☀️☁️🌧🍎🚗🚲🏎🚀🚁🏡🎁❤️🇨🇦".map { String($0) }
     
     // MARK: - HELPER FUNCTIONS
@@ -77,8 +79,72 @@ class CanvasViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDropDelegate
+extension CanvasViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: NSAttributedString.self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        
+        // UICollectionViewDropProposal differs from UIDropProposal because it has an extra intent parameter: to know if our drop is into an existing cell (replace) or to create a new cell
+        
+        let isDraggedFromEmojiCollectionView = (session.localDragSession?.localContext as? UICollectionView) == collectionView
+        let operation = isDraggedFromEmojiCollectionView ? UIDropOperation.move : .copy
+        
+        return UICollectionViewDropProposal(operation: operation, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        // when drop happens: we need to 1) update model 2) collectionView UI
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        
+        for item in coordinator.items {
+            if let sourceIndexPath = item.sourceIndexPath { // know source => it's from emojiCV
+                
+                // getting the actual object to drop: can skip session.loadObjects(ofClass:) because we stashed object when telling CV which item to drag
+                if let draggedEmoji = item.dragItem.localObject as? NSAttributedString {
+                    
+                    // use batch updates when doing multiple adjustments to model and UI otw they'll get out of sync during the lengthy update
+                    collectionView.performBatchUpdates ({
+                        //Don't need self. to access emojis because it's not an @escaping closure
+                        emojis.remove(at: sourceIndexPath.item)
+                        emojis.insert(draggedEmoji.string, at: destinationIndexPath.item)
+                        
+                        // don't reloadData() in middle of a drag because it resets the 'world'
+                        collectionView.deleteItems(at: [sourceIndexPath])
+                        collectionView.insertItems(at: [destinationIndexPath])
+                    })
+                    
+                    coordinator.drop(item.dragItem, toItemAt: destinationIndexPath) // drop animation, even though added it to CV already
+                }
+            } else { // don't know source => it's from outside app, need to go fetch the data to drop (NSAttributedString) -> put placeholder in CV while fetching
+                
+                let placeholderCell = UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "dropPlaceholderCell")
+                let placeholderContext = coordinator.drop(item.dragItem, to: placeholderCell) // use this context object later to remove the placeholder cell
+                
+                // just a different way from session.loadObjects(ofClass:), to get dragged object
+                item.dragItem.itemProvider.loadObject(ofClass: NSAttributedString.self, completionHandler: { (provider, error) in
+                    DispatchQueue.main.async {
+                        if let draggedEmoji = provider as? NSAttributedString {
+                            placeholderContext.commitInsertion(dataSourceUpdates: { (insertionIndexPath) in
+                                self.emojis.insert(draggedEmoji.string, at: insertionIndexPath.item)
+                            })
+                            
+                        } else {
+                            placeholderContext.deletePlaceholder()
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+
+// MARK: - UICollectionViewDragDelegate
 extension CanvasViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        session.localContext = collectionView // lets people who drop know: this is a drag w/in the collectionView itself
         return dragItems(at: indexPath)
     }
     
@@ -100,7 +166,7 @@ extension CanvasViewController: UICollectionViewDragDelegate {
     }
 }
 
-
+// MARK: - UICollectionViewDelegate & DataSource
 extension CanvasViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return emojis.count
@@ -112,11 +178,9 @@ extension CanvasViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configure(using: emojis[indexPath.item])
         return cell
     }
-    
-    
 }
 
-
+// MARK: - UIScrollViewDelegate
 extension CanvasViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return canvasView
@@ -127,13 +191,12 @@ extension CanvasViewController: UIScrollViewDelegate {
     }
 }
 
-
+// MARK: - UIDropInteractionDelegate
 extension CanvasViewController: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         
         // NSURL is Obj-C class, URL is Swift struct. Can "as" one to another. But here we want the class itself, not instance
-        
         // I'm only interested in getting an image+url otw, won't proceed to funcs below
         return session.canLoadObjects(ofClass: NSURL.self)
             && session.canLoadObjects(ofClass: UIImage.self)
@@ -141,7 +204,7 @@ extension CanvasViewController: UIDropInteractionDelegate {
     
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         
-        // Always accepting iamges from outside our app, .move is for w/in app only but don't need that here
+        // Always accepting images from outside our app, .move is for w/in app only but don't need that here
         return UIDropProposal(operation: .copy)
     }
     

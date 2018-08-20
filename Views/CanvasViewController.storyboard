@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,6 +75,27 @@
                                         <connections>
                                             <outlet property="label" destination="J9w-Px-8AP" id="jhI-hU-gBS"/>
                                         </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dropPlaceholderCell" id="qdA-jK-MaU">
+                                        <rect key="frame" x="90" y="0.0" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0HU-Up-NEC">
+                                                    <rect key="frame" x="16" y="16" width="48" height="48"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="0HU-Up-NEC" secondAttribute="bottom" constant="8" id="0mD-HI-Ino"/>
+                                            <constraint firstItem="0HU-Up-NEC" firstAttribute="leading" secondItem="qdA-jK-MaU" secondAttribute="leadingMargin" constant="8" id="7FC-3e-bzs"/>
+                                            <constraint firstItem="0HU-Up-NEC" firstAttribute="centerY" secondItem="qdA-jK-MaU" secondAttribute="centerY" id="KYl-gg-zGy"/>
+                                            <constraint firstItem="0HU-Up-NEC" firstAttribute="centerX" secondItem="qdA-jK-MaU" secondAttribute="centerX" id="diI-wV-ytj"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="0HU-Up-NEC" secondAttribute="trailing" constant="8" id="swh-98-R7D"/>
+                                            <constraint firstItem="0HU-Up-NEC" firstAttribute="top" secondItem="qdA-jK-MaU" secondAttribute="topMargin" constant="8" id="yHa-o7-git"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
